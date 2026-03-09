@@ -7,10 +7,6 @@ const Sale = require('./models/Sale');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
 app.use(cors ());
 app.use(express.json());
 
@@ -116,4 +112,8 @@ app.delete('/Sale/:id', async (req,res) => {
      }catch (error){
           res.status(404).json({mensaje: "Id de Usuario no encontrado"});
      }
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
