@@ -22,7 +22,7 @@ app.get('/User', async(req, res) => {
      }
 });
 
-app.post('/User', async (req, res) => {
+app.post('/login', async (req, res) => {
      const {email, password} = req.body;
 
      try{
@@ -52,6 +52,11 @@ app.get('/User/:id', async (req, res) => {
 
 app.post('/User', async (req, res) => {
      try{
+          const {password} = req.body;
+          const salt = await bcrypt.genSalt(10);
+          const hashedPassword = await bcrypt.hash(password, salt);
+          req.body.password = hashedPassword;
+
           const newUser = new User(req.body);
           await newUser.save();
           res.status(201).json(newUser);
