@@ -28,11 +28,11 @@ app.post('/login', async (req, res) => {
      try{
           const usuario = await User.findOne({email});
 
-          if(!usuario) return res.status(404).json({mensaje: "El email o contraseña son incorrectos"});
+          if(!usuario) return res.status(404).json({mensaje: "El email es incorrecto"});
 
           const isMatch = await bcrypt.compare(password, usuario.password);
 
-          if(!isMatch) return res.status(404).json({mensaje: "El email o contraseña son incorrectos"});
+          if(!isMatch) return res.status(404).json({mensaje: "La contraseña es incorrecta"});
 
           res.status(200).json({mensaje: "Inicio de sesión exitoso"});
      }catch (error){
