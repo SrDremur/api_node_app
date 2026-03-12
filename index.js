@@ -3,6 +3,7 @@ const cors = require('cors');
 const conectDB = require('./db_conection');
 const User = require('./models/User');
 const Sale = require('./models/Sale');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,24 @@ app.get('/User', async(req, res) => {
           res.json(usuario);
      }catch (error){
           req.status(500).json({mensaje: "Error al encontrar usuarios"});
+     }
+});
+
+app.post('/User', async (req, res) => {
+     const {email, password} = req.body;
+
+     try{
+          const usuario = await User.findOne({email});
+
+          if(!usuario) return res.status(404).json({mensaje: "El email o contraseña son incorrectos"});
+
+          const isMatch = await bcrypt.compare(password, usuario.password);
+
+          if(!isMatch) return res.status(404).json({mensaje: "El email o contraseña son incorrectos"});
+
+          res.status(200).json({mensaje: "Inicio de sesión exitoso"});
+     }catch (error){
+          res.status(500).json({mensaje: "Error al iniciar sesión"});
      }
 });
 
