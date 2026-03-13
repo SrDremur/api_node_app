@@ -34,7 +34,7 @@ app.post('/login', async (req, res) => {
 
           if(!isMatch) return res.status(404).json({mensaje: "La contraseña es incorrecta"});
 
-          res.status(200).json({mensaje: "Inicio de sesión exitoso"});
+          res.json(usuario);
      }catch (error){
           res.status(500).json({mensaje: "Error al iniciar sesión"});
      }
