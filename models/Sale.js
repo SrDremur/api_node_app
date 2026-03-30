@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const SaleSchema =  new mongoose.Schema({
     id_user: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
     products: [{
-        id_product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+        id_product: { type: Number, required: true },
         quantity: {type: Number, required: true},
         price: {type: Number, required: true},
         subtotal: {type: Number, required: true}
