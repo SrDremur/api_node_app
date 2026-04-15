@@ -65,7 +65,7 @@ app.post('/User', async (req, res) => {
      }
 });
 
-app.put('/User/id', async (req, res) => {
+app.put('/User/:id', async (req, res) => {
      try{
           const update = await User.findByIdAndUpdate(
                req.params.id,
